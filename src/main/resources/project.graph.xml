@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphs xmlns="http://cayenne.apache.org/schema/10/graph">
+	<graph type="ER" scale="1.0">
+		<entity name="Film" x="1337.26" y="471.12" width="75.0" height="210.0"/>
+		<entity name="Admin" x="121.51" y="496.27" width="66.0" height="114.0"/>
+		<entity name="Client" x="737.69" y="208.81" width="66.0" height="130.0"/>
+	</graph>
+</graphs>
