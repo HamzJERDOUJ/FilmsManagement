@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Films Management</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+        <h1 class="logo mr-auto"><a href="index.html">Films Management</a></h1>
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="index.html">All Films</a></li>
+                <li class="active"><a href="contact.html">Contact us</a></li>
+            </ul>
+        </nav>
+        <a href="logout.html" class="get-started-btn">Log Out</a>
+    </div>
+</header>
+<main id="main">
+    <div class="breadcrumbs" data-aos="fade-in">
+        <div class="container">
+            <h2>Add New Film</h2>
+            <p></p>
+        </div>
+    </div>
+    <section id="contact" class="contact">
+        <div class="container" data-aos="fade-up">
+            <div class="row mt-5">
+                <div class="col-lg-12">
+                    <form action="add.html" method="post" role="form" class="php-email-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <fieldset>
+                                    <label for="name">Film Name :</label><input class="form-control"
+                                                                                placeholder="Film Name" id="name"
+                                                                                type="text">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <fieldset>
+                                    <label for="name">Film Description :</label><input class="form-control"
+                                                                                       placeholder="Film Description"
+                                                                                       id="description" type="text">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <fieldset>
+                                    <label for="name">Film Duration :</label><input class="form-control"
+                                                                                    placeholder="Film Duration"
+                                                                                    id="duration" type="text">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <fieldset>
+                                    <label for="name">Film Quality :</label><input class="form-control"
+                                                                                   placeholder="Film Quality"
+                                                                                   id="quality" type="text">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <fieldset>
+                                    <label for="name">Film Year :</label><input class="form-control"
+                                                                                placeholder="Film Year" id="year"
+                                                                                type="text">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <fieldset>
+                                    <label for="name">Film minimum age :</label><input class="form-control"
+                                                                                       placeholder="Film minimum age"
+                                                                                       id="age" type="text">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <fieldset>
+                                    <label for="name">Film Rating :</label><input class="form-control"
+                                                                                  placeholder="Film Rating" id="rating"
+                                                                                  type="text">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <fieldset>
+                                    <label for="name">Film Type :</label><input class="form-control"
+                                                                                placeholder="Film Type" id="type"
+                                                                                type="text">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <br>
+                                <fieldset>
+                                    <label id="filmPhoto" class="btn btn-primary search-file-btn">
+                                        <input id="photo" name="file1" type="file" style="display:None;"
+                                               accept="image/jpeg"> <span>Choose film photo</span>
+                                    </label>
+                                    <span>No photo selected</span>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <br>
+                                <fieldset>
+                                    <label id="filmVideo" class="btn btn-primary search-file-btn">
+                                        <input id="video" name="file1" type="file" style="display:None;"
+                                               accept="video/mp4"> <span>Choose the video</span>
+                                    </label>
+                                    <span>No video selected</span>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="text-center">
+                            <button type="button" onclick="addNewFilm()">Add New Film</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer id="footer">
+    <div class="container d-md-flex py-4">
+        <div class="mr-md-auto text-center text-md-left">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Films Management</span></strong>. All Rights Reserved
+            </div>
+        </div>
+    </div>
+</footer>
+<a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+<div id="preloader"></div>
+
+<script src="assets/js/axios.min.js"></script>
+
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
+<script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+<script src="assets/vendor/counterup/counterup.min.js"></script>
+<script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="assets/vendor/aos/aos.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script src="assets/js/code.js"></script>
+<script src="assets/js/cookie.umd.min.js"></script>
+
+<script type="text/javascript">
+    var token = cookie.get('token');
+    if (token === undefined) {
+        window.location.href = "login.html";
+    }
+
+    $().ready(function ($) {
+        $('.search-file-btn').children("input").bind('change', function () {
+            var fileName = '';
+            fileName = $(this).val().split("\\").slice(-1)[0];
+            $(this).parent().parent().children("span").html(fileName);
+        })
+    });
+</script>
+</body>
+</html>
