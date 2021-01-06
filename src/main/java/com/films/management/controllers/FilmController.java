@@ -18,6 +18,7 @@ import spark.Response;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -103,18 +104,14 @@ public class FilmController {
                 String link = request.get("link");
                 try {
                     byte[] decodedBytes = Base64.getDecoder().decode(photo.split("base64,")[1]);
-                    File file = new File(new File("").getAbsolutePath() + "/files/photos/" + photoName + ".jpg");
-                    FileOutputStream fileOutputStream = new FileOutputStream(file);
-                    fileOutputStream.write(decodedBytes);
-                    fileOutputStream.flush();
-                    fileOutputStream.close();
+                    try (OutputStream stream = new FileOutputStream(new File("").getAbsolutePath() + "/public/photos/" + photoName + ".jpg")) {
+                        stream.write(decodedBytes);
+                    }
 
                     decodedBytes = Base64.getDecoder().decode(link.split("base64,")[1]);
-                    file = new File(new File("").getAbsolutePath() + "/files/videos/" + videoName + ".mp4");
-                    fileOutputStream = new FileOutputStream(file);
-                    fileOutputStream.write(decodedBytes);
-                    fileOutputStream.flush();
-                    fileOutputStream.close();
+                    try (OutputStream stream = new FileOutputStream(new File("").getAbsolutePath() + "/public/videos/" + videoName + ".mp4")) {
+                        stream.write(decodedBytes);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

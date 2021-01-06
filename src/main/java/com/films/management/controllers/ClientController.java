@@ -2,6 +2,7 @@ package com.films.management.controllers;
 
 import com.films.management.Application;
 import com.films.management.models.Client;
+import com.films.management.models.Film;
 import com.films.management.settings.Settings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -11,6 +12,7 @@ import io.fusionauth.jwt.Verifier;
 import io.fusionauth.jwt.domain.JWT;
 import io.fusionauth.jwt.hmac.HMACSigner;
 import io.fusionauth.jwt.hmac.HMACVerifier;
+import org.apache.cayenne.Cayenne;
 import org.apache.cayenne.query.ObjectSelect;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
@@ -19,13 +21,12 @@ import org.apache.commons.mail.SimpleEmail;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -147,6 +148,36 @@ public class ClientController {
         return stringBuilder.toString();
     }
 
+    public static String contact(Request req, Response res) {
+        res.type("application/json");
+        Gson gson = new Gson();
+        HashMap<String, String> data = new HashMap<>();
+        String token = req.headers("Authorization");
+        String authenticatedUserEmail = getAuthenticatedUserEmail(token);
+        if (authenticatedUserEmail.equals("")) {
+            data.put("code", "2");
+            data.put("message", "token is required");
+            return gson.toJson(data);
+        } else if (authenticatedUserEmail == null) {
+            data.put("code", "3");
+            data.put("message", "token is invalid");
+            return gson.toJson(data);
+        } else {
+            HashMap<String, String> request;
+            Type type = new TypeToken<HashMap<String, String>>() {
+            }.getType();
+            request = gson.fromJson(req.body(), type);
+            String name = request.get("name");
+            String email = request.get("email");
+            String subject = request.get("subject");
+            String message = request.get("message");
+            sendMail(email, Settings.email, subject, name+ " said :\n" + message);
+            data.put("code", "1");
+            data.put("message", "the operation completed successfully");
+            return gson.toJson(data);
+        }
+    }
+
     private static String getAuthenticatedUserEmail(String token) {
         if (token == null) return "";
         Verifier verifier = HMACVerifier.newVerifier(Settings.secret);
@@ -162,7 +193,7 @@ public class ClientController {
     private static void sendMail(String from, String to, String subject, String content) {
         try {
             Email email = new SimpleEmail();
-            email.setHostName("smtp.mail.yahoo.com");
+            email.setHostName("smtp.gmail.com");
             email.setSmtpPort(465);
             email.setAuthenticator(new DefaultAuthenticator(Settings.email, Settings.password));
             email.setSSLOnConnect(true);

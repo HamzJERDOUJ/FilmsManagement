@@ -25,14 +25,35 @@ function login() {
                     timer: 2500
                 });
                 cookie.set('token', response.data.message);
+                cookie.set('type', 'client');
                 window.location.href = "index.html";
             } else {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: response.data.message,
-                    showConfirmButton: false,
-                    timer: 2500
+                axios.post(api + '/admin/login', {
+                    email: email,
+                    password: password,
+                }).then(function (response) {
+                    if (response.data.code === '1') {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Logged in successfully !',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                        cookie.set('token', response.data.message);
+                        cookie.set('type', 'admin');
+                        window.location.href = "index.html";
+                    } else {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: response.data.message,
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }
+                }).catch(function (error) {
+                    console.log(error);
                 });
             }
         }).catch(function (error) {
@@ -69,6 +90,7 @@ function sendMessage() {
                     showConfirmButton: false,
                     timer: 2500
                 });
+                window.location.href = "index.html";
             } else {
                 Swal.fire({
                     position: 'center',
@@ -144,12 +166,39 @@ function viewFilm(id) {
                 width: 800,
                 html:
                     '<video width="600" controls>\n' +
-                    '  <source src="http://localhost:8000/videos/' + link + '" type="video/mp4">\n' +
+                    '  <source src="http://localhost:8000/videos/' + link + '.mp4" type="video/mp4">\n' +
                     '  Your browser does not support HTML video' +
                     '</video><br><center><p>' + response.data.description + '</p></center>',
                 showCloseButton: true,
                 showConfirmButton: false,
                 showCancelButton: false
+            });
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function deleteFilm(id) {
+    axios.delete(api + '/films/' + id, {
+        headers: {"Authorization": cookie.get('token')}
+    }).then(function (response) {
+        if (response.data.code === '1') {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'The operation has been completed successfully !',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            window.location.href = "add.html";
+        } else {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'An error occurred, please try again later !',
+                showConfirmButton: false,
+                timer: 2500
             });
         }
     }).catch(function (error) {
@@ -173,13 +222,42 @@ function add(i, element) {
     let all = document.getElementById('all-films');
     var item = '<div class="col-lg-4 col-md-6 d-flex align-items-stretch">' +
         '<div class="member">' +
-        '<img src="http://localhost:8000/photos/' + element.photo + '" class="img-fluid" alt="">' +
+        '<img src="http://localhost:8000/photos/' + element.photo + '.jpg" class="img-fluid" alt="">' +
         '<div class="member-content">' +
         '<h4>' + element.name + '</h4>' +
         '<span>' + element.type + '</span>' +
         '<center>' +
         '<div class="text-center">' +
         '<button class="btn" type="button" onclick="viewFilm(' + element.objectId.singleValue + ')">View This Film</button>' +
+        '</div></center></div></div></div>';
+
+    all.innerHTML += item;
+}
+
+function getAllFilms() {
+    axios.get(api + '/films', {
+        headers: {"Authorization": cookie.get('token')}
+    }).then(function (response) {
+        for (var i = 0; i < response.data.length; i++) {
+            addFilm((i + 1), response.data[i]);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function addFilm(i, element) {
+    let all = document.getElementById('all-films');
+    var item = '<div class="col-lg-4 col-md-6 d-flex align-items-stretch">' +
+        '<div class="member">' +
+        '<img src="http://localhost:8000/photos/' + element.photo + '.jpg" class="img-fluid" alt="">' +
+        '<div class="member-content">' +
+        '<h4>' + element.name + '</h4>' +
+        '<span>' + element.type + '</span>' +
+        '<center>' +
+        '<div class="text-center">' +
+        '<button class="btn" type="button" onclick="viewFilm(' + element.objectId.singleValue + ')">View This Film</button>' +
+        '<button style=" margin-top: 10px; " class="btn" type="button" onclick="deleteFilm(' + element.objectId.singleValue + ')">Delete This Film</button>' +
         '</div></center></div></div></div>';
 
     all.innerHTML += item;
@@ -231,7 +309,6 @@ function addNewFilm() {
                                 link: data2
                             }, {headers: {"Authorization": cookie.get('token')}}
                         ).then(function (response) {
-                            if (response.data.message === '1') {
                                 Swal.fire({
                                     position: 'center',
                                     icon: 'success',
@@ -239,16 +316,7 @@ function addNewFilm() {
                                     showConfirmButton: false,
                                     timer: 2500
                                 });
-                                window.location.href = "add.html";
-                            } else {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'error',
-                                    title: 'An error occurred, please try again later !',
-                                    showConfirmButton: false,
-                                    timer: 2500
-                                });
-                            }
+                            window.location.href = "add.html";
                         }).catch(function (error) {
                             console.log(error);
                         });

@@ -13,7 +13,7 @@ public class Routes {
     public static void map() {
         post("/client/login", ClientController::login);
         post("/client/register", ClientController::register);
-        post("/client/verify/:token", ClientController::verify);
+        get("/client/verify/:token", ClientController::verify);
 
         post("/admin/login", AdminController::login);
 
@@ -21,6 +21,8 @@ public class Routes {
         get("/films", FilmController::getFilms);
         post("/films", FilmController::addFilm);
         delete("/films/:id", FilmController::deleteFilm);
+
+        post("/contact", ClientController::contact);
 
         notFound((req, res) -> {
             res.type("application/json");
