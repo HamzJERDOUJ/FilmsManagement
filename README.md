@@ -5,6 +5,7 @@
 ![](https://img.shields.io/badge/version-1.0.0-green)
 ![](https://img.shields.io/badge/gson-2.8.6-yellow)
 ![](https://img.shields.io/badge/sparkjava-2.9.0-brightgreen)
+![](https://img.shields.io/badge/cayenne--server-4.1-red)
 ![](https://img.shields.io/badge/fusionauth--jwt-4.0.1-purple)
 ![](https://img.shields.io/badge/ojdbc8-19.3.0.0-violet)
 ![](https://img.shields.io/badge/axios-0.21.0-red)
@@ -12,11 +13,12 @@
 ![](https://img.shields.io/badge/jquery-2.1.0-blue)
 
 ## Description
-This project is a web application of films management, there are two users, the admin which manage the website (manage films), and the client who can create an account and log in to watch films.
+This project is a web application of films management, there are two users, the admin who manage the website (manage films), and the client who can create an account and log in to watch films.
 
 ## Built With
 * [Gson](https://github.com/google/gson)
 * [SparkJava](https://sparkjava.com)
+* [Apache Cayenne](https://cayenne.apache.org/)
 * [Oracle Database 12c](https://www.oracle.com/database/12c-database)
 * [Fusionauth-jwt](https://github.com/FusionAuth/fusionauth-jwt)
 * [Axios](https://github.com/axios/axios)
@@ -64,9 +66,12 @@ This project is a web application of films management, there are two users, the 
 package com.films.management.settings;
 
 public class Settings {
-    public static String email = "films.management@yahoo.com";
-    public static String password = "djhg5H0j5640H342";
-    public static String secret = "hvzk@ds@}a]&5jgf19ok#&jdfhgdf@@k}56@6zJaTiofdg5ds";
+    //TODO: Enter the email address here
+    public static String email = "";
+    //TODO: Enter the email password here
+    public static String password = "";
+    //TODO: Enter a secret key here (for the JWT token encoding) 
+    public static String secret = "";
 }
 ```
 + Run the Back-End application (Application.java).
